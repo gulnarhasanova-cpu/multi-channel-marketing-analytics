@@ -6,20 +6,7 @@ This repository contains the production-ready data pipeline and quality assuranc
 
 ## 🏗️ Project Architecture
 1. **Extraction & Ingestion Layer:** Raw CSV data uploaded directly into a staging environment inside Google BigQuery (`marketing_staging`).
-2. **Transformation & Data Modeling Layer (`data_model.sql`):** Consolidated disparate schemas, standardized metric naming conventions (e.g., standardizing `spend` vs `cost`), applied explicit data typing, and engineered downstream analytical KPIs (CTR, CPC, CAC, Conversion Rate). ## 🏗️ Project Architecture
-...
-2. **Transformation & Data Modeling Layer:** Enforces the target analytical schema ([`data_model.sql`](./data_model.sql)) and executes the multi-channel ETL unification pipeline. 
-
-<details>
-<summary><b>▶ Click to view production Pipeline SQL Code</b></summary>
-
-```sql
--- =========================================================================
--- DATA PIPELINE LAYER: MULTI-CHANNEL DATA UNIFICATION MODEL
--- =========================================================================
-CREATE OR REPLACE TABLE `analytics.fact_marketing_performance` AS
-WITH unified_data AS (
-...
+2. **Transformation & Data Modeling Layer:** Enforces a standardized target analytical schema using explicit data typing via [`data_model.sql`](./data_model.sql). The underlying BigQuery data pipeline unifies the disparate platform streams, standardizes naming conventions (e.g., `spend` vs `cost`), applies zero-division guardrails, and engineers core downstream analytical KPIs (CTR, CPC, CAC, Conversion Rate).
 3. **Data Quality Layer (`qa_framework.sql`):** A strict 3-phase automated testing framework ensuring absolute data integrity before dashboard loading.
 4. **Semantic/BI Layer:** Final performance metrics exposed via Google Looker Studio for executive decision-making.
 
